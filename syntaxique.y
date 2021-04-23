@@ -98,7 +98,8 @@ liste_identificateurs   : ID VIRGULE liste_identificateurs
 						| ID ;
  
 type 					: standard_type 
-						| ARRAY BRACKET_OUVRANTE LIT_INTEGER POINT POINT LIT_INTEGER BRACKET_FERMANTE
+						| ARRAY BRACKET_OUVRANTE LIT_INTEGER POINT POINT LIT_INTEGER BRACKET_FERMANTE OF standard_type
+						| ARRAY BRACKET_OUVRANTE LIT_INTEGER POINT POINT LIT_INTEGER BRACKET_FERMANTE OF error {yyerror("missing type");}
 						;
 
 standard_type 			: INTEGER
@@ -118,6 +119,8 @@ declaration_methode 	: entete_methode liste_declarations instruction_composee
 entete_methode 			: PROCEDURE 
 						  ID
 						  arguments
+						| PROCEDURE error arguments {yyerror("missing identifier");}
+						| PROCEDURE ID error {yyerror("missing PROCEDURE args");}
 						;
  
 arguments 				: OUVRANTE liste_parametres  

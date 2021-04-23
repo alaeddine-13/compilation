@@ -4,7 +4,7 @@
 #include <stdlib.h>	          
 #include <string.h>
 #include <math.h>	
-#include "analyseur_syntaxique.tab.h"	
+#include "syntaxique.tab.h"	
 
 int nbline = 1 ;
 
