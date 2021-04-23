@@ -6,8 +6,6 @@
 
 // nombre de lignes lus partagé avec l'analyseur lexical
 extern int nbline; 
-// chaine de caractères partagée avec l’analyseur lexical
-char nom[256];
 
 
 int yyerror(char const * msg);	

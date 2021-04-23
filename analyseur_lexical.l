@@ -7,7 +7,6 @@
 #include "analyseur_syntaxique.tab.h"	
 
 int nbline = 1 ;
-extern char nom[];
 
 %}
 
@@ -78,16 +77,15 @@ string               return(STRING);
 {real}               return(LITERAL_REAL);
 {string}             return(LITERAL_STRING);
 
-{integer}           {   yylval = atoi(yytext); 
+{integer}           {
                         return(LITERAL_INTEGER);
                     }
-{identifier}        {   strcpy(nom, yytext); 
+{identifier}        {
                         return IDENTIFIER; 
                     }
 
 {bad_string}        { fprintf(stderr,"Error on line %d : Unterminated string\n", nbline); }
 
-[*/+\-^,:.()\[\]]    return(yytext[0]);
 
 {white_space}        /* do nothing */
 \n                   ++nbline;
