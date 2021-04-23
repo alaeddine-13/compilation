@@ -12,19 +12,21 @@ int nbline = 1 ;
 
 %x COMMENT
 
-white_space       [ \t]*
-digit             [0-9]
-alpha             [A-Za-z_]
-alpha_num         ({alpha}|{digit})
-hex_digit         [0-9A-F]
-identifier        {alpha}{alpha_num}*
-unsigned_integer  {digit}+
-integer           -*{digit}+
-exponent          e[+-]?{digit}+
+delim       [ \t]*
+chiffre             [0-9]
+lettre             [A-Za-z_]
+lettre_num         ({lettre}|{chiffre})
+id        {lettre}{lettre_num}*
+unsigned_integer  {chiffre}+
+integer           -*{chiffre}+
+exponent          e[+-]?{chiffre}+
 i                 {unsigned_integer}
 real              ({i}\.{i}?|{i}?\.{i}){exponent}?
 string            \'([^'\n]|\'\')+\'
 bad_string        \'([^'\n]|\'\')+
+
+ouvrante  (\()
+fermante  (\))
 
 %%
 
@@ -65,13 +67,18 @@ write				 return(WRITE);
 integer              return(INTEGER);
 real                 return(REAL);
 string               return(STRING);
-
+{ouvrante}           return(OUVRANTE);
+{fermante}           return(FERMANTE); 
 "<="|"=<"            return(LEQ);
 "=>"|">="            return(GEQ);
 "<>"                 return(NEQ);
 "="                  return(EQ);
 ":="                 return(AFFECT);
 ";"					 return(POINT_VIRGULE);
+","					 return(VIRGULE);
+"["					 return(BRACKET_OUVRANTE);
+"]"					 return(BRACKET_FERMANTE);
+":"					 return(COLON);
 ".."                 return(DOUBLEDOT);
 "+"                  return(PLUS);
 "-"                  return(MOINS);
@@ -86,7 +93,7 @@ string               return(STRING);
 {integer}           {
                         return(LITERAL_INTEGER);
                     }
-{identifier}        {
+{id}        {
                         return IDENTIFIER; 
                     }
 
@@ -94,7 +101,7 @@ string               return(STRING);
 
 
 
-{white_space}        /* do nothing */
+{delim}        /* do nothing */
 \n                   ++nbline;
 .                    { fprintf(stderr,"Error on line %d : Illegal character \'%s\'\n", nbline); }
 

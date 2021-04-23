@@ -15,11 +15,11 @@ int yylex();
 
 %token PROGRAM 
 %token POINT_VIRGULE
+%token COLON
 %token IDENTIFIER
 %token AND
 %token ARRAY
 %token _BEGIN
-%token DIV
 %token DO
 %token ELSE
 %token END
@@ -58,6 +58,11 @@ int yylex();
 %token MOINS
 %token MULT
 %token DIV
+%token OUVRANTE
+%token FERMANTE
+%token BRACKET_FERMANTE
+%token BRACKET_OUVRANTE
+%token VIRGULE
 
 %start programme
 
@@ -65,6 +70,7 @@ int yylex();
 
 programme 				: entete liste_declarations declaration_methodes instruction_composee
 						| entete liste_declarations instruction_composee
+						| entete declaration_methodes instruction_composee
 						| entete instruction_composee 
 						| entete 
 						;
@@ -76,7 +82,7 @@ entete					: PROGRAM IDENTIFIER POINT_VIRGULE
                 		;
 
 liste_declarations  	: declaration liste_declarations 
-						| declaration 
+						| declaration
 						;
  
 declaration 			: VAR declaration_corps POINT_VIRGULE 
@@ -84,9 +90,10 @@ declaration 			: VAR declaration_corps POINT_VIRGULE
 						| VAR declaration_corps error				 {yyerror ("Semicolon expected"); }
 						;
  
-declaration_corps   	: liste_identificateurs ':' type;
+declaration_corps   	: liste_identificateurs COLON type;
+
  
-liste_identificateurs   : IDENTIFIER ',' liste_identificateurs 
+liste_identificateurs   : IDENTIFIER VIRGULE liste_identificateurs 
 						| IDENTIFIER ;
  
 type 					: standard_type 
@@ -107,15 +114,17 @@ declaration_methode 	: entete_methode liste_declarations instruction_composee
  
 entete_methode 			: PROCEDURE 
 						  IDENTIFIER
-						  arguments ;
+						  arguments
+						;
  
-arguments 				: '(' liste_parametres  
-						  ')' 
+arguments 				: OUVRANTE liste_parametres  
+						  FERMANTE
+						| OUVRANTE FERMANTE
 						;
  
 liste_parametres 		: declaration_corps POINT_VIRGULE liste_parametres 	
-						| declaration_corps error liste_parametres   {yyerror ("Semicolon expected"); }
 						| declaration_corps 
+						| declaration_corps error liste_parametres   {yyerror ("Semicolon expected"); }
 						;
  
 instruction_composee    : _BEGIN liste_instructions END
@@ -142,12 +151,12 @@ lvalue 					: IDENTIFIER
 						;
  
 appel_methode 			: IDENTIFIER 
-						  '(' liste_expressions ')' 
+						  OUVRANTE liste_expressions FERMANTE
 						| IDENTIFIER error {yyerror("Missing parentheses");}
 						;
  
 liste_expressions 		: expression 
-						  ',' liste_expressions 
+						  VIRGULE liste_expressions 
 						| expression 
 						|
 						;
@@ -167,9 +176,9 @@ addop 					: PLUS
  
 facteur 				: IDENTIFIER 
 						| IDENTIFIER 
-						  '[' expression ']' 
+						  BRACKET_OUVRANTE expression BRACKET_FERMANTE
 						| LITERAL_INTEGER 
-						| '(' expression ')' 
+						| OUVRANTE expression FERMANTE
 						;
 
 %% 
