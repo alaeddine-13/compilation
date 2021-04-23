@@ -12,43 +12,45 @@ int yyerror(char const * msg);
 int yylex();
 
 %}
-%token ELSE
 %token PROGRAM 
+%token IMPORT
+%token PROCEDURE
+%token FUNCTION
+%token BBEGIN
+%token END
+%token DO
+%token WHILE
+%token FOR
+%token REPEAT
+%token UNTIL
+%token IF
+%token THEN
+%token ELSE
 %token ID
 %token SEMICOLON
-%token END
-%token IMPORT
-%token IN
-%token FUNCTION
-%token FOR
 %token COLON
-%token REPEAT
+%token POINT
+%token POINT2
+%token IN
 %token NOT
-%token PROCEDURE
 %token AND
+%token OR
 %token ARRAY
-%token BBEGIN
+%token OF
 %token VAR
 %token TYPE
 %token REAL
 %token STRING
 %token INTEGER
-%token DO
-%token WHILE
 %token READ
 %token WRITE
-%token IF
 %token MOD
-%token THEN
-%token UNTIL
-%token OF
 
 %token LESS_EQUAL
 %token GREATER_EQUAL
 %token NOT_EQUAL
 %token EQUAL
 %token AFFECTATION
-%token DEUX_POINTS
 
 %token LIT_INTEGER
 %token LIT_REAL
@@ -97,10 +99,12 @@ liste_identificateurs   : ID VIRGULE liste_identificateurs
 						| ID ;
  
 type 					: standard_type 
-						| ARRAY '[' LIT_INTEGER DEUX_POINTS LIT_INTEGER ']' OF  standard_type 
+						| ARRAY BRACKET_OUVRANTE LIT_INTEGER POINT POINT LIT_INTEGER BRACKET_FERMANTE
 						;
 
 standard_type 			: INTEGER
+						| REAL
+						| STRING
 						| error {yyerror("type invalide");}
 						;
  

@@ -34,7 +34,7 @@ fermante  (\))
 begin                return(BBEGIN);
 else                 return(ELSE);
 mod                  return(MOD);
-import               return(IMPORT)
+import               return(IMPORT);
 program              return(PROGRAM);
 repeat               return(REPEAT);
 in                   return(IN);
@@ -46,6 +46,7 @@ read				 return(READ);
 function             return(FUNCTION);
 write				 return(WRITE);
 and                  return(AND);
+or                  return(OR);
 array                return(ARRAY);
 end                  return(END);
 if                   return(IF);
@@ -65,7 +66,8 @@ string               return(STRING);
 "["					 return(BRACKET_OUVRANTE);
 "]"					 return(BRACKET_FERMANTE);
 ":"					 return(COLON);
-".."                 return(DEUX_POINTS);
+".."                 return(POINT2);
+"."                 return(POINT);
 "<="|"=<"            return(LESS_EQUAL);
 "=>"|">="            return(GREATER_EQUAL);
 "<>"                 return(NOT_EQUAL);
