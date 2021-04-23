@@ -54,6 +54,11 @@ int yylex();
 %token LITERAL_REAL
 %token LITERAL_STRING
 
+%token PLUS
+%token MOINS
+%token MULT
+%token DIV
+
 %start programme
 
 %%
@@ -152,12 +157,12 @@ expression 				: facteur
 						| facteur mulop facteur
 						;
  
-mulop 					: '*' 
-						| '/' 
+mulop 					: MULT
+						| DIV 
 						;
 
-addop 					: '+' 
-						| '-' 
+addop 					: PLUS
+						| MOINS
 						;
  
 facteur 				: IDENTIFIER 

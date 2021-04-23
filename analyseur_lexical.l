@@ -73,6 +73,12 @@ string               return(STRING);
 ":="                 return(AFFECT);
 ";"					 return(POINT_VIRGULE);
 ".."                 return(DOUBLEDOT);
+"+"                  return(PLUS);
+"-"                  return(MOINS);
+"*"                  return(MULT);
+"/"                  return(DIV);
+
+[*/+\-^,:.()\[\]]    return(yytext[0]);
 
 {real}               return(LITERAL_REAL);
 {string}             return(LITERAL_STRING);
@@ -85,6 +91,7 @@ string               return(STRING);
                     }
 
 {bad_string}        { fprintf(stderr,"Error on line %d : Unterminated string\n", nbline); }
+
 
 
 {white_space}        /* do nothing */
