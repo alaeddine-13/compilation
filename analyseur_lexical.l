@@ -31,6 +31,52 @@ fermante  (\))
 %%
 
 
+begin                return(BBEGIN);
+else                 return(ELSE);
+mod                  return(MOD);
+import               return(IMPORT)
+program              return(PROGRAM);
+repeat               return(REPEAT);
+in                   return(IN);
+while                return(WHILE);
+then                 return(THEN);
+for                  return(FOR);
+do                   return(DO);
+read				 return(READ);
+function             return(FUNCTION);
+write				 return(WRITE);
+and                  return(AND);
+array                return(ARRAY);
+end                  return(END);
+if                   return(IF);
+not                  return(NOT);
+procedure            return(PROCEDURE);
+until                return(UNTIL);
+var                  return(VAR);
+of					 return(OF);
+integer              return(INTEGER);
+real                 return(REAL);
+div                  return(DIV);
+string               return(STRING);
+{ouvrante}           return(OUVRANTE);
+{fermante}           return(FERMANTE); 
+";"					 return(SEMICOLON);
+","					 return(VIRGULE);
+"["					 return(BRACKET_OUVRANTE);
+"]"					 return(BRACKET_FERMANTE);
+":"					 return(COLON);
+".."                 return(DEUX_POINTS);
+"<="|"=<"            return(LESS_EQUAL);
+"=>"|">="            return(GREATER_EQUAL);
+"<>"                 return(NOT_EQUAL);
+"="                  return(EQUAL);
+":="                 return(AFFECTATION);
+"+"                  return(PLUS);
+"-"                  return(MOINS);
+"*"                  return(MULT);
+"/"                  return(DIV);
+
+
 "/*"                BEGIN(COMMENT);
 <COMMENT>[^*\n]+
 <COMMENT>\n         ++nbline;
@@ -41,60 +87,16 @@ fermante  (\))
 <COMMENT>"*/"       BEGIN(INITIAL);
 <COMMENT>[*/]
 
-and                  return(AND);
-array                return(ARRAY);
-begin                return(_BEGIN);
-div                  return(DIV);
-do                   return(DO);
-else                 return(ELSE);
-end                  return(END);
-for                  return(FOR);
-function             return(FUNCTION);
-if                   return(IF);
-in                   return(IN);
-mod                  return(MOD);
-not                  return(NOT);
-procedure            return(PROCEDURE);
-program              return(PROGRAM);
-repeat               return(REPEAT);
-then                 return(THEN);
-until                return(UNTIL);
-var                  return(VAR);
-while                return(WHILE);
-of					 return(OF);
-read				 return(READ);
-write				 return(WRITE);
-integer              return(INTEGER);
-real                 return(REAL);
-string               return(STRING);
-{ouvrante}           return(OUVRANTE);
-{fermante}           return(FERMANTE); 
-"<="|"=<"            return(LEQ);
-"=>"|">="            return(GEQ);
-"<>"                 return(NEQ);
-"="                  return(EQ);
-":="                 return(AFFECT);
-";"					 return(POINT_VIRGULE);
-","					 return(VIRGULE);
-"["					 return(BRACKET_OUVRANTE);
-"]"					 return(BRACKET_FERMANTE);
-":"					 return(COLON);
-".."                 return(DOUBLEDOT);
-"+"                  return(PLUS);
-"-"                  return(MOINS);
-"*"                  return(MULT);
-"/"                  return(DIV);
-
 [*/+\-^,:.()\[\]]    return(yytext[0]);
 
-{real}               return(LITERAL_REAL);
-{string}             return(LITERAL_STRING);
+{real}               return(LIT_REAL);
+{string}             return(LIT_STRING);
 
 {integer}           {
-                        return(LITERAL_INTEGER);
+                        return(LIT_INTEGER);
                     }
 {id}        {
-                        return IDENTIFIER; 
+                        return ID; 
                     }
 
 {bad_string}        { fprintf(stderr,"Error on line %d : Unterminated string\n", nbline); }

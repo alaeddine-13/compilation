@@ -12,47 +12,47 @@ int yyerror(char const * msg);
 int yylex();
 
 %}
-
-%token PROGRAM 
-%token POINT_VIRGULE
-%token COLON
-%token IDENTIFIER
-%token AND
-%token ARRAY
-%token _BEGIN
-%token DO
 %token ELSE
+%token PROGRAM 
+%token ID
+%token SEMICOLON
 %token END
-%token FOR
-%token FUNCTION
-%token IF
+%token IMPORT
 %token IN
-%token MOD
+%token FUNCTION
+%token FOR
+%token COLON
+%token REPEAT
 %token NOT
 %token PROCEDURE
-%token REPEAT
-%token THEN
-%token TYPE
-%token UNTIL
+%token AND
+%token ARRAY
+%token BBEGIN
 %token VAR
-%token WHILE
-%token OF
-%token READ
-%token WRITE
-%token INTEGER
+%token TYPE
 %token REAL
 %token STRING
+%token INTEGER
+%token DO
+%token WHILE
+%token READ
+%token WRITE
+%token IF
+%token MOD
+%token THEN
+%token UNTIL
+%token OF
 
-%token LEQ
-%token GEQ
-%token NEQ
-%token EQ
-%token AFFECT
-%token DOUBLEDOT
+%token LESS_EQUAL
+%token GREATER_EQUAL
+%token NOT_EQUAL
+%token EQUAL
+%token AFFECTATION
+%token DEUX_POINTS
 
-%token LITERAL_INTEGER
-%token LITERAL_REAL
-%token LITERAL_STRING
+%token LIT_INTEGER
+%token LIT_REAL
+%token LIT_STRING
 
 %token PLUS
 %token MOINS
@@ -75,37 +75,37 @@ programme 				: entete liste_declarations declaration_methodes instruction_compo
 						| entete 
 						;
 
-entete					: PROGRAM IDENTIFIER POINT_VIRGULE
-            			| error IDENTIFIER POINT_VIRGULE     {yyerror ("Keyword 'program' is missing"); }
-                		| PROGRAM error POINT_VIRGULE        {yyerror ("The program name is invalid"); } 
-                		| PROGRAM IDENTIFIER error           {yyerror ("Semicolon expected"); }
+entete					: PROGRAM ID SEMICOLON
+            			| error ID SEMICOLON     {yyerror ("mot clef 'program' absent"); }
+                		| PROGRAM error SEMICOLON        {yyerror ("nom du prog invalide"); } 
+                		| PROGRAM ID error           {yyerror ("semicolon expecte"); }
                 		;
 
 liste_declarations  	: declaration liste_declarations 
 						| declaration
 						;
  
-declaration 			: VAR declaration_corps POINT_VIRGULE 
-						| error declaration_corps POINT_VIRGULE      {yyerror ("Keyword 'var' is missing"); }
-						| VAR declaration_corps error				 {yyerror ("Semicolon expected"); }
+declaration 			: VAR declaration_corps SEMICOLON 
+						| error declaration_corps SEMICOLON      {yyerror ("mot clef 'var' absent"); }
+						| VAR declaration_corps error				 {yyerror ("semicolon expecte"); }
 						;
  
 declaration_corps   	: liste_identificateurs COLON type;
 
  
-liste_identificateurs   : IDENTIFIER VIRGULE liste_identificateurs 
-						| IDENTIFIER ;
+liste_identificateurs   : ID VIRGULE liste_identificateurs 
+						| ID ;
  
 type 					: standard_type 
-						| ARRAY '[' LITERAL_INTEGER DOUBLEDOT LITERAL_INTEGER ']' OF  standard_type 
+						| ARRAY '[' LIT_INTEGER DEUX_POINTS LIT_INTEGER ']' OF  standard_type 
 						;
 
 standard_type 			: INTEGER
-						| error {yyerror("Type not valid");}
+						| error {yyerror("type invalide");}
 						;
  
-declaration_methodes 	: declaration_methode POINT_VIRGULE declaration_methodes 
-						| declaration_methode POINT_VIRGULE
+declaration_methodes 	: declaration_methode SEMICOLON declaration_methodes 
+						| declaration_methode SEMICOLON
 						;
  
 declaration_methode 	: entete_methode liste_declarations instruction_composee 
@@ -113,7 +113,7 @@ declaration_methode 	: entete_methode liste_declarations instruction_composee
 						;
  
 entete_methode 			: PROCEDURE 
-						  IDENTIFIER
+						  ID
 						  arguments
 						;
  
@@ -122,37 +122,37 @@ arguments 				: OUVRANTE liste_parametres
 						| OUVRANTE FERMANTE
 						;
  
-liste_parametres 		: declaration_corps POINT_VIRGULE liste_parametres 	
+liste_parametres 		: declaration_corps SEMICOLON liste_parametres 	
 						| declaration_corps 
-						| declaration_corps error liste_parametres   {yyerror ("Semicolon expected"); }
+						| declaration_corps error liste_parametres   {yyerror ("semicolon expecte"); }
 						;
  
-instruction_composee    : _BEGIN liste_instructions END
-						| _BEGIN END 
+instruction_composee    : BBEGIN liste_instructions END
+						| BBEGIN END 
 						;
  
-liste_instructions 		: instruction POINT_VIRGULE liste_instructions 
-						| instruction POINT_VIRGULE 
-						| instruction error  {yyerror ("Semicolon expected"); }
+liste_instructions 		: instruction SEMICOLON liste_instructions 
+						| instruction SEMICOLON 
+						| instruction error  {yyerror ("semicolon expecte"); }
 						;
 
-instruction  			: lvalue AFFECT expression 
+instruction  			: lvalue AFFECTATION expression 
 						| appel_methode
 						| instruction_composee 
 						| IF expression THEN instruction ELSE instruction 
 						| WHILE expression DO instruction 
-						| WRITE '(' liste_expressions ')'
-						| READ '(' liste_identificateurs ')'
+						| WRITE OUVRANTE liste_expressions FERMANTE
+						| READ OUVRANTE liste_identificateurs FERMANTE
 						;
  
-lvalue 					: IDENTIFIER 
-						'[' expression ']' 
-						| IDENTIFIER 
+lvalue 					: ID 
+						BRACKET_OUVRANTE expression BRACKET_FERMANTE 
+						| ID 
 						;
  
-appel_methode 			: IDENTIFIER 
+appel_methode 			: ID 
 						  OUVRANTE liste_expressions FERMANTE
-						| IDENTIFIER error {yyerror("Missing parentheses");}
+						| ID error {yyerror("parenthese absente");}
 						;
  
 liste_expressions 		: expression 
@@ -174,10 +174,10 @@ addop 					: PLUS
 						| MOINS
 						;
  
-facteur 				: IDENTIFIER 
-						| IDENTIFIER 
+facteur 				: ID 
+						| ID 
 						  BRACKET_OUVRANTE expression BRACKET_FERMANTE
-						| LITERAL_INTEGER 
+						| LIT_INTEGER 
 						| OUVRANTE expression FERMANTE
 						;
 
