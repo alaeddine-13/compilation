@@ -19,9 +19,9 @@ lettre_num         ({lettre}|{chiffre})
 id        {lettre}{lettre_num}*
 unsigned_integer  {chiffre}+
 integer           -*{chiffre}+
-exponent          e[+-]?{chiffre}+
+exposant          e[+-]?{chiffre}+
 i                 {unsigned_integer}
-real              ({i}\.{i}?|{i}?\.{i}){exponent}?
+real              ({i}\.{i}?|{i}?\.{i}){exposant}?
 string            \'([^'\n]|\'\')+\'
 bad_string        \'([^'\n]|\'\')+
 

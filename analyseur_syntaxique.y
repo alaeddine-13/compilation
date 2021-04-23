@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// nombre de lignes lus partagé avec l'analyseur lexical
 extern int nbline; 
 
 
@@ -189,7 +188,7 @@ facteur 				: ID
 
 int yyerror(char const * msg) 
 {
-	fprintf(stderr, "Error on line %d : %s\n", nbline, msg);
+	fprintf(stderr, "erreur ligne %d : %s\n", nbline, msg);
 	return(1);
 }
 
