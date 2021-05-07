@@ -94,10 +94,10 @@ declaration_corps   	: liste_identificateurs ':' type{
 						;
 
 liste_identificateurs   : IDENTIFIER {
-							checkIdentifier(nom,nbline);
+							verifierID(nom,nbline);
 						} ',' liste_identificateurs
 						| IDENTIFIER {
-							checkIdentifier(nom,nbline);
+							verifierID(nom,nbline);
 						}
 						;
 

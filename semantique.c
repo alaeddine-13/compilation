@@ -108,7 +108,7 @@ void DisplaySymbolsTable( TABLE_NOUED SymbolsTable ){
 }
 
 
-void checkIdentifier (char* nom, int nbline){
+void verifierID (char* nom, int nbline){
     CLASSE classe;
 
     if (g_IfProc){

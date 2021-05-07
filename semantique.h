@@ -34,7 +34,7 @@ NOEUD creer (const char* nom, TYPE_IDENTIFIANT type, CLASSE classe, NOEUD suivan
 NOEUD insert (NOEUD noeud, TABLE_NOUED table);
 NOEUD chercher (const char* nom, TABLE_NOUED table);
 
-void checkIdentifier(char* nom, int nbline);
+void verifierID(char* nom, int nbline);
 int checkIdentifierDeclared(char* nom, int nbline);
 void varInitialized (char* nom);
 void checkVarInit(char * nom, int nbline);

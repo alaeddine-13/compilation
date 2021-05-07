@@ -105,10 +105,10 @@ declaration_corps   	: liste_identificateurs COLON type{
 
  
 liste_identificateurs   : ID {
-                            checkIdentifier(nom,nbline);
+                            verifierID(nom,nbline);
                         } VIRGULE liste_identificateurs
 						| ID {
-                            checkIdentifier(nom,nbline);
+                            verifierID(nom,nbline);
                         };
  
 type 					: standard_type 

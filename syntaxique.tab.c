@@ -1550,7 +1550,7 @@ yyreduce:
   case 17:
 #line 107 "syntaxique.y"
                              {
-                            checkIdentifier(nom,nbline);
+                            verifierID(nom,nbline);
                         }
 #line 1556 "syntaxique.tab.c"
     break;
@@ -1558,7 +1558,7 @@ yyreduce:
   case 19:
 #line 110 "syntaxique.y"
                                                      {
-                            checkIdentifier(nom,nbline);
+                            verifierID(nom,nbline);
                         }
 #line 1564 "syntaxique.tab.c"
     break;
