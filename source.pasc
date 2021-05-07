@@ -12,7 +12,7 @@ program tp1Source4;
   ===================== */
   
 var x,y,k,y,e: integer;
-var tab1: array [1. .10] of;
+var tab1: array [1 . . 10] of;
 
 /* ====================================================
   une procedure sans parametre, son nom est encore,
