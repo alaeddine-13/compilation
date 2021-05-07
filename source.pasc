@@ -62,9 +62,9 @@ begin
   tab();
 
   nouvelleProcedure(2,3,tab2);
-  
+
   encore();
-  encore(2+3);  
+  encore(2+3);
   encore(2+3,x)  /*ERREUR SEMANTIQUE: la procedure encore n'a pas de parametre
-  
+
 end

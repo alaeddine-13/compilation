@@ -186,7 +186,7 @@ instruction_composee    : BBEGIN liste_instructions END
 						;
  
 liste_instructions 		: instruction SEMICOLON liste_instructions
-						| instruction SEMICOLON 
+						| instruction SEMICOLON
 						| instruction error  {yyerror ("semicolon expecte"); }
 						;
 
@@ -225,6 +225,17 @@ appel_methode 			: ID
 								yyerror("invalid number of parameters ");
 							g_nbParam = 0;
 						}
+						|ID
+                        {
+                            g_noeud = chercherNoeud(nom,table);
+                        }
+                          OUVRANTE FERMANTE
+                        {
+                            g_nbParam = 0;
+                            if ( g_noeud->nbParam != g_nbParam)
+                                yyerror("invalid number of parameters ");
+                            g_nbParam = 0;
+                        }
 						| ID error {yyerror("parenthese absente");}
 						;
  
