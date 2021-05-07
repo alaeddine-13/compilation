@@ -72,11 +72,11 @@ void End();
 
 %%
 
-programme 				: entete liste_declarations declaration_methodes instruction_composee
-						| entete liste_declarations instruction_composee
-						| entete declaration_methodes instruction_composee
-						| entete instruction_composee 
-						| entete 
+programme 				: entete liste_declarations declaration_methodes instruction_composee {endProc(nbline);}
+						| entete liste_declarations instruction_composee {endProc(nbline);}
+						| entete declaration_methodes instruction_composee {endProc(nbline);}
+						| entete instruction_composee  {endProc(nbline);}
+						| entete  {endProc(nbline);}
 						;
 
 entete					: PROGRAM ID SEMICOLON
@@ -105,9 +105,11 @@ declaration_corps   	: liste_identificateurs COLON type{
 
  
 liste_identificateurs   : ID {
+                            printf("*********** here 1 ********** \n");
                             checkIdentifier(nom,nbline);
                         } VIRGULE liste_identificateurs
 						| ID {
+                            printf("*********** here 2 ********** \n");
                             checkIdentifier(nom,nbline);
                         };
  
@@ -129,11 +131,11 @@ declaration_methodes 	: declaration_methode SEMICOLON declaration_methodes
 						| declaration_methode SEMICOLON
 						;
  
-declaration_methode 	: entete_methode liste_declarations instruction_composee 
-						| entete_methode instruction_composee 
+declaration_methode 	: entete_methode {g_IfProc = 1; } liste_declarations instruction_composee {endProc(nbline);}
+						| entete_methode {g_IfProc = 1; } instruction_composee {endProc(nbline);}
 						;
  
-entete_methode 			: PROCEDURE { g_IfProc = 1; }
+entete_methode 			: PROCEDURE
 						  ID
 						  {
                             if( chercherNoeud(nom, table) ){
@@ -179,8 +181,8 @@ liste_parametres 		: declaration_corps SEMICOLON liste_parametres
 						| declaration_corps error liste_parametres   {yyerror ("semicolon expecte"); }
 						;
  
-instruction_composee    : BBEGIN liste_instructions END {endProc(nbline);}
-						| BBEGIN END {endProc(nbline);}
+instruction_composee    : BBEGIN liste_instructions END
+						| BBEGIN END
 						;
  
 liste_instructions 		: instruction SEMICOLON liste_instructions
@@ -210,6 +212,7 @@ lvalue 					: ID
 						{
 						    checkIDOnInit(nom, nbline);
 						}
+						| error {yyerror("identificateur invalide");}
 						;
  
 appel_methode 			: ID
@@ -268,7 +271,7 @@ facteur 				: ID
 
 int yyerror(char const * msg) 
 {
-	fprintf(stderr, "erreur ligne %d : %s\n", nbline, msg);
+	printf("erreur syntaxique ligne %d : %s\n", nbline, msg);
 	return(1);
 }
 

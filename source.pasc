@@ -23,7 +23,6 @@ procedure encore ;
 var a: integer;
 
 begin
-
   write(a);
 	
   if (a 3) then
@@ -48,7 +47,7 @@ begin
   x := x + tab2[2];
   y := tab2[2] + tab2[2];
   
-  tab2[0]  := 3 
+  tab2[0]  := 3
   tab2[1]  := 5;
   tab2[11] := 4;
 
@@ -56,7 +55,7 @@ begin
   Bla Bla
      Bla
        Bla
-          Bla*/ 
+          Bla*/
        
 
   maProcedure();

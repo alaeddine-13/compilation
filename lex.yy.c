@@ -1128,7 +1128,7 @@ YY_RULE_SETUP
 case 57:
 YY_RULE_SETUP
 #line 108 "main.l"
-{ fprintf(stderr,"Error on line %d : Unterminated string\n", nbline); }
+{ printf("erreur syntaxique ligne %d : Unterminated string\n", nbline); }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
@@ -1144,7 +1144,7 @@ YY_RULE_SETUP
 case 60:
 YY_RULE_SETUP
 #line 114 "main.l"
-{ fprintf(stderr,"Error on line %d : Illegal character \'%s\'\n", nbline); }
+{ printf("erreur syntaxique ligne %d : Illegal character \'%s\'\n", nbline); }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
