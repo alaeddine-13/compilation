@@ -203,16 +203,12 @@ instruction  			: lvalue AFFECTATION expression
  
 lvalue 					: ID
 						{
-							if(checkIdentifierDeclared(nom,nbline)) {
-								varInitialized (nom);
-							}
+						    checkIDOnInit(nom, nbline);
 						}
 						BRACKET_OUVRANTE expression BRACKET_FERMANTE 
 						| ID
 						{
-							if(checkIdentifierDeclared(nom,nbline)) {
-								varInitialized (nom);
-							}
+						    checkIDOnInit(nom, nbline);
 						}
 						;
  
@@ -257,15 +253,11 @@ addop 					: PLUS
  
 facteur 				: ID
 						{
-							if(checkIdentifierDeclared(nom,nbline)) {
-								checkVarInit(nom, nbline);
-							}
+						    checkID(nom, nbline);
 						}
 						| ID
 						{
-							if(checkIdentifierDeclared(nom,nbline)) {
-								checkVarInit(nom, nbline);
-							}
+						    checkID(nom, nbline);
 						}
 						  BRACKET_OUVRANTE expression BRACKET_FERMANTE
 						| LIT_INTEGER 

@@ -84,9 +84,6 @@
 		<Unit filename="/home/alaeddine/Desktop/Projects/GL4/semestre2/Compilation/syntaxique/syntaxique.tab.c">
 			<Option target="syntaxique"/>
 		</Unit>
-		<Unit filename="/home/alaeddine/Desktop/Projects/GL4/semestre2/Compilation/syntaxique/syntaxique.tab.h">
-			<Option target="syntaxique"/>
-		</Unit>
 		<Unit filename="/home/alaeddine/Desktop/Projects/GL4/semestre2/Compilation/syntaxique/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

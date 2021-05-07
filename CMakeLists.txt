@@ -7,7 +7,4 @@ include_directories(.)
 
 add_executable(syntaxique
         lex.yy.c
-        syntaxique.tab.c
-        syntaxique.tab.h
-        semantique.c
-        semantique.h)
+        syntaxique.tab.c)

@@ -41,7 +41,8 @@ void checkVarInit(char * nom, int nbline);
 void endProc(int nbline);
 void destructSymbolsTable( TABLE_SEMANTIQUE SymbolsTable );
 int print_error(char* msg, int nbline);
-
+void checkID(char* nom, int nbline);
+void checkIDOnInit(char* nom, int nbline);
 
 
 

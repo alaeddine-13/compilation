@@ -202,6 +202,7 @@ void checkVarInit (char* nom,int nbline){
 void endProc(int nbline)
 {
     NOEUD tmp_table;
+    printf("g_ifproc: %d", g_IfProc);
     if (g_IfProc == 1){
         // printf("*** Table Locale ***\n");
         // DisplaySymbolsTable( tableLocale );
@@ -215,7 +216,15 @@ void endProc(int nbline)
     }
     while( tmp_table ){
         if (tmp_table->classe == variable && !tmp_table->isUsed)
-            print_error("Variable declared not used",nbline);
+        {
+            char* message;
+            const char* msg = "Variable declared not used: ";
+            message = malloc(strlen(msg)+ strlen(tmp_table->nom));
+            strcpy(message, msg);
+            strcat(message, tmp_table->nom);
+            print_error(message,nbline);
+        }
+
         tmp_table = tmp_table->suivant;
     }
 }
@@ -225,7 +234,18 @@ int print_error(char * msg, int nbline)
     fprintf(stderr,"Error on line %d : %s\n", nbline, msg);
     return(1);
 }
-/*int main()
-{
-    return 0;
-}*/
+
+
+void checkID(char* nom, int nbline){
+    if(checkIdentifierDeclared(nom, nbline)) {
+        checkVarInit(nom, nbline);
+    }
+}
+
+
+void checkIDOnInit(char* nom, int nbline){
+    if(checkIdentifierDeclared(nom,nbline)) {
+        varInitialized (nom);
+    }
+}
+

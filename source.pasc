@@ -19,7 +19,7 @@ var tab1: array [1 . . 10] of;
   elle possede une variable locale a
   ==================================================== */
  
-procedure encore;
+procedure encore ;
 var a: integer;
 
 begin
@@ -27,7 +27,7 @@ begin
   write(a);
 	
   if (a 3) then
-    a := a + d    
+    a := a + d
   else
     a := a + 20;
 
