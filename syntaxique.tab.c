@@ -1622,11 +1622,11 @@ yyreduce:
   case 33:
 #line 140 "syntaxique.y"
                                                   {
-                            if( chercherNoeud(nom, table) ){
+                            if( chercher(nom, table) ){
                                 yyerror("Procedure already defined");
                             }else{
-                                g_noeudProc = creerNoeud(nom, NODE_TYPE_UNKNOWN, procedure, NULL);
-                                table = insererNoeud(g_noeudProc, table);
+                                g_noeudProc = creer(nom, NODE_TYPE_UNKNOWN, procedure, NULL);
+                                table = insert(g_noeudProc, table);
                             }
                             g_IfProcParameters = 1;
                         }
@@ -1645,11 +1645,11 @@ yyreduce:
   case 36:
 #line 156 "syntaxique.y"
                                                  {
-                            if( chercherNoeud(nom, table) ){
+                            if( chercher(nom, table) ){
                                 yyerror("Procedure already defined");
                             }else{
-                                g_noeudProc = creerNoeud(nom, NODE_TYPE_UNKNOWN, procedure, NULL);
-                                table = insererNoeud(g_noeudProc, table);
+                                g_noeudProc = creer(nom, NODE_TYPE_UNKNOWN, procedure, NULL);
+                                table = insert(g_noeudProc, table);
                             }
                             g_IfProcParameters = 1;
                         }
@@ -1735,7 +1735,7 @@ yyreduce:
   case 63:
 #line 219 "syntaxique.y"
                                                 {
-							g_noeud = chercherNoeud(nom,table);
+							g_noeud = chercher(nom,table);
 						}
 #line 1741 "syntaxique.tab.c"
     break;
@@ -1753,7 +1753,7 @@ yyreduce:
   case 65:
 #line 229 "syntaxique.y"
                         {
-                            g_noeud = chercherNoeud(nom,table);
+                            g_noeud = chercher(nom,table);
                         }
 #line 1759 "syntaxique.tab.c"
     break;

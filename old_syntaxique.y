@@ -121,11 +121,11 @@ declaration_methode 	: entete_methode liste_declarations instruction_composee
 entete_methode 			: PROCEDURE { g_IfProc = 1; }
 						  IDENTIFIER
 						{
-							if( chercherNoeud(nom, table) ){
+							if( chercher(nom, table) ){
 								yyerror("Procedure already defined");
 							}else{
-								g_noeudProc = creerNoeud(nom, NODE_TYPE_UNKNOWN, procedure, NULL);
-								table = insererNoeud(g_noeudProc, table);
+								g_noeudProc = creer(nom, NODE_TYPE_UNKNOWN, procedure, NULL);
+								table = insert(g_noeudProc, table);
 							}
 							g_IfProcParameters = 1;
 			            }
@@ -187,7 +187,7 @@ lvalue 					: IDENTIFIER
 
 appel_methode 			: IDENTIFIER
 						{
-							g_noeud = chercherNoeud(nom,table);
+							g_noeud = chercher(nom,table);
 						}
 						  '(' liste_expressions ')'
 						{

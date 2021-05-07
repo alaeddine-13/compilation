@@ -12,7 +12,7 @@ int g_IfProc;
 int g_IfProcParameters;
 int g_nbParam;
 
-NOEUD creerNoeud (const char* nom, TYPE_IDENTIFIANT type, CLASSE classe, NOEUD suivant){
+NOEUD creer (const char* nom, TYPE_IDENTIFIANT type, CLASSE classe, NOEUD suivant){
     NOEUD noeud = (NOEUD)malloc(sizeof(struct NOEUD));
     noeud->nom = (char *)malloc(strlen(nom)+1);
     strcpy(noeud->nom, nom);
@@ -22,7 +22,7 @@ NOEUD creerNoeud (const char* nom, TYPE_IDENTIFIANT type, CLASSE classe, NOEUD s
     return noeud;
 }
 
-NOEUD insererNoeud (NOEUD noeud, TABLE_NOUED table) {
+NOEUD insert (NOEUD noeud, TABLE_NOUED table) {
     if( !table ) {
         return noeud;
     }
@@ -36,7 +36,7 @@ NOEUD insererNoeud (NOEUD noeud, TABLE_NOUED table) {
     }
 }
 
-NOEUD chercherNoeud (const char* nom, TABLE_NOUED table) {
+NOEUD chercher (const char* nom, TABLE_NOUED table) {
     if( !table )
         return NULL;
     NOEUD noeud = table;
@@ -118,20 +118,20 @@ void checkIdentifier (char* nom, int nbline){
         }else{
             classe = variable;
         }
-        if( chercherNoeud(nom, table_local) ){
+        if(chercher(nom, table_local) ){
             print_error(concat("Identificateur deja defini: ", nom),nbline);
         }else{
-            NOEUD noeud = creerNoeud(nom, g_type, classe ,NULL);
-            table_local = insererNoeud(noeud, table_local);
+            NOEUD noeud = creer(nom, g_type, classe, NULL);
+            table_local = insert(noeud, table_local);
             g_ListIdentifiers[g_index] = noeud;
             g_index++;
         }
     }else{
-        if( chercherNoeud(nom, table) ){
+        if(chercher(nom, table) ){
             print_error(concat("Identificateur deja defini: ", nom),nbline);
         }else{
-            NOEUD noeud = creerNoeud(nom, g_type, variable ,NULL);
-            table = insererNoeud(noeud, table);
+            NOEUD noeud = creer(nom, g_type, variable, NULL);
+            table = insert(noeud, table);
             g_ListIdentifiers[g_index] = noeud;
             g_index++;
         }
@@ -143,9 +143,9 @@ int checkIdentifierDeclared (char* nom, int nbline){
     NOEUD noeud;
 
     if (g_IfProc){
-        noeud = chercherNoeud(nom,table_local);
+        noeud = chercher(nom, table_local);
         if ( !noeud ){
-            noeud = chercherNoeud(nom,table);
+            noeud = chercher(nom, table);
             if( !noeud ){
                 print_error(concat("variable non declare: ", nom),nbline);
                 return 0;
@@ -158,7 +158,7 @@ int checkIdentifierDeclared (char* nom, int nbline){
             noeud->isUsed = 1;
         }
     }else{
-        noeud = chercherNoeud(nom,table);
+        noeud = chercher(nom, table);
         if( !noeud ){
             print_error(concat("variable non declare: ", nom),nbline);
             return 0;
@@ -175,11 +175,11 @@ void varInitialized (char* nom){
     NOEUD noeud;
 
     if (g_IfProc){
-        noeud = chercherNoeud(nom,table_local);
+        noeud = chercher(nom, table_local);
         if ( !noeud )
-            noeud = chercherNoeud(nom,table);
+            noeud = chercher(nom, table);
     }else{
-        noeud = chercherNoeud(nom,table);
+        noeud = chercher(nom, table);
     }
     noeud->isInit = 1;
 }
@@ -189,11 +189,11 @@ void checkVarInit (char* nom,int nbline){
     NOEUD noeud;
 
     if (g_IfProc){
-        noeud = chercherNoeud(nom,table_local);
+        noeud = chercher(nom, table_local);
         if ( !noeud )
-            noeud = chercherNoeud(nom,table);
+            noeud = chercher(nom, table);
     }else{
-        noeud = chercherNoeud(nom,table);
+        noeud = chercher(nom, table);
     }
     if(noeud && noeud->classe == variable && !noeud->isInit)
         print_error("Variable not initialized",nbline);

@@ -138,11 +138,11 @@ declaration_methode 	: entete_methode {g_IfProc = 1; } liste_declarations instru
 entete_methode 			: PROCEDURE
 						  ID
 						  {
-                            if( chercherNoeud(nom, table) ){
+                            if( chercher(nom, table) ){
                                 yyerror("Procedure already defined");
                             }else{
-                                g_noeudProc = creerNoeud(nom, NODE_TYPE_UNKNOWN, procedure, NULL);
-                                table = insererNoeud(g_noeudProc, table);
+                                g_noeudProc = creer(nom, NODE_TYPE_UNKNOWN, procedure, NULL);
+                                table = insert(g_noeudProc, table);
                             }
                             g_IfProcParameters = 1;
                         }
@@ -154,11 +154,11 @@ entete_methode 			: PROCEDURE
 						SEMICOLON
 						| PROCEDURE ID
 						 {
-                            if( chercherNoeud(nom, table) ){
+                            if( chercher(nom, table) ){
                                 yyerror("Procedure already defined");
                             }else{
-                                g_noeudProc = creerNoeud(nom, NODE_TYPE_UNKNOWN, procedure, NULL);
-                                table = insererNoeud(g_noeudProc, table);
+                                g_noeudProc = creer(nom, NODE_TYPE_UNKNOWN, procedure, NULL);
+                                table = insert(g_noeudProc, table);
                             }
                             g_IfProcParameters = 1;
                         }
@@ -217,7 +217,7 @@ lvalue 					: ID
  
 appel_methode 			: ID
 						{
-							g_noeud = chercherNoeud(nom,table);
+							g_noeud = chercher(nom,table);
 						}
 						  OUVRANTE liste_expressions FERMANTE
 						{
@@ -227,7 +227,7 @@ appel_methode 			: ID
 						}
 						|ID
                         {
-                            g_noeud = chercherNoeud(nom,table);
+                            g_noeud = chercher(nom,table);
                         }
                           OUVRANTE FERMANTE
                         {

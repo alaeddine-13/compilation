@@ -30,9 +30,9 @@ struct NOEUD
 typedef struct NOEUD * NOEUD;
 typedef NOEUD TABLE_NOUED;
 
-NOEUD creerNoeud (const char* nom, TYPE_IDENTIFIANT type, CLASSE classe, NOEUD suivant);
-NOEUD insererNoeud (NOEUD noeud, TABLE_NOUED table);
-NOEUD chercherNoeud (const char* nom, TABLE_NOUED table);
+NOEUD creer (const char* nom, TYPE_IDENTIFIANT type, CLASSE classe, NOEUD suivant);
+NOEUD insert (NOEUD noeud, TABLE_NOUED table);
+NOEUD chercher (const char* nom, TABLE_NOUED table);
 
 void checkIdentifier(char* nom, int nbline);
 int checkIdentifierDeclared(char* nom, int nbline);
