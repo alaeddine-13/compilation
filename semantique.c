@@ -201,7 +201,6 @@ void verifierVarInitialise (char* nom, int nbline){
 
 void finProcedure(int nbline)
 {
-    printf("g_ifproc: %d\n", g_IfProc);
     NOEUD tmp_table;
     if (g_IfProc == 1){
         g_IfProc = 0;

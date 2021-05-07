@@ -1,8 +1,0 @@
-program HelloWorld;
-var 
- no : intezger;
-/* Here the main program block starts */
-begin
-   no := 0;
-   no := no +1;
-end
