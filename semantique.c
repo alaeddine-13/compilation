@@ -1,6 +1,6 @@
 #include "semantique.h"
 
-TABLE_SEMANTIQUE table, tableLocale;
+TABLE_NOUED table, tableLocale;
 
 // Variables Globales
 NOEUD g_noeud, g_noeudProc;
@@ -22,7 +22,7 @@ NOEUD creerNoeud (const char* nom, TYPE_IDENTIFIANT type, CLASSE classe, NOEUD s
     return noeud;
 }
 
-NOEUD insererNoeud (NOEUD noeud, TABLE_SEMANTIQUE table) {
+NOEUD insererNoeud (NOEUD noeud, TABLE_NOUED table) {
     if( !table ) {
         return noeud;
     }
@@ -36,7 +36,7 @@ NOEUD insererNoeud (NOEUD noeud, TABLE_SEMANTIQUE table) {
     }
 }
 
-NOEUD chercherNoeud (const char* nom, TABLE_SEMANTIQUE table) {
+NOEUD chercherNoeud (const char* nom, TABLE_NOUED table) {
     if( !table )
         return NULL;
     NOEUD noeud = table;
@@ -45,7 +45,7 @@ NOEUD chercherNoeud (const char* nom, TABLE_SEMANTIQUE table) {
     return noeud;
 }
 
-void destructSymbolsTable( TABLE_SEMANTIQUE table )
+void destructSymbolsTable( TABLE_NOUED table )
 {
     if( !table )
         return;
@@ -59,7 +59,7 @@ void destructSymbolsTable( TABLE_SEMANTIQUE table )
 }
 
 
-void DisplaySymbolsTable( TABLE_SEMANTIQUE SymbolsTable ){
+void DisplaySymbolsTable( TABLE_NOUED SymbolsTable ){
     if( !SymbolsTable )
         return;
     NOEUD Node = SymbolsTable;
