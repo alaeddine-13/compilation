@@ -1595,25 +1595,25 @@ yyreduce:
 
   case 29:
 #line 132 "syntaxique.y"
-                                         {g_IfProc = 1; }
+                                         { g_IfProc = 1; }
 #line 1600 "syntaxique.tab.c"
     break;
 
   case 30:
 #line 132 "syntaxique.y"
-                                                                                                  {finProcedure(nbline);}
+                                                                                                   {finProcedure(nbline);}
 #line 1606 "syntaxique.tab.c"
     break;
 
   case 31:
 #line 133 "syntaxique.y"
-                                                                 {g_IfProc = 1; }
+                                                                 { g_IfProc = 1; }
 #line 1612 "syntaxique.tab.c"
     break;
 
   case 32:
 #line 133 "syntaxique.y"
-                                                                                                       {finProcedure(nbline);}
+                                                                                                        {finProcedure(nbline);}
 #line 1618 "syntaxique.tab.c"
     break;
 

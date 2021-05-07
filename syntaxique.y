@@ -129,8 +129,8 @@ declaration_methodes 	: declaration_methode SEMICOLON declaration_methodes
 						| declaration_methode SEMICOLON
 						;
  
-declaration_methode 	: entete_methode {g_IfProc = 1; } liste_declarations instruction_composee {finProcedure(nbline);}
-						| entete_methode {g_IfProc = 1; } instruction_composee {finProcedure(nbline);}
+declaration_methode 	: entete_methode { g_IfProc = 1; } liste_declarations instruction_composee {finProcedure(nbline);}
+						| entete_methode { g_IfProc = 1; } instruction_composee {finProcedure(nbline);}
 						;
  
 entete_methode 			: PROCEDURE
