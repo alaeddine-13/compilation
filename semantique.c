@@ -196,13 +196,12 @@ void verifierVarInitialise (char* nom, int nbline){
         noeud = chercher(nom, table);
     }
     if(noeud && noeud->classe == variable && !noeud->isInit)
-        print_error("Variable not initialized",nbline);
+        print_error("Variable non initialise",nbline);
 }
 
 void finProcedure(int nbline)
 {
     NOEUD tmp_table;
-    printf("g_ifproc: %d", g_IfProc);
     if (g_IfProc == 1){
         g_IfProc = 0;
         tmp_table = table_local;

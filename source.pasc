@@ -11,20 +11,22 @@ program tp1Source4;
   des variables globales
   ===================== */
   
-var x,y,x: integer;
-var tab1: array [1 . . 10] of;
+var x,y,k,y,e: integer;
+var tab1: array [1. .10] of;
 
 /* ====================================================
   une procedure sans parametre, son nom est encore,
   elle possede une variable locale a
   ==================================================== */
- 
+
 procedure encore ;
-var a: integer;
+var a,h: integer;
 
 begin
+
   write(a);
-	
+  x := g + 20;
+
   if (a 3) then
     a := a + d
   else
@@ -33,9 +35,9 @@ begin
   write(a)
 
 end;
-  
 
-  
+
+
 /* ====================================================
   le bloc principal (ne peut acceder qu'aux variables
   globles (comme en C ou en Java)
@@ -44,9 +46,9 @@ end;
 begin
 
   1x := 3+2;
-  x := x + tab2[2];
+  x := x + tab2[2] + e;
   y := tab2[2] + tab2[2];
-  
+
   tab2[0]  := 3
   tab2[1]  := 5;
   tab2[11] := 4;
@@ -56,12 +58,7 @@ begin
      Bla
        Bla
           Bla*/
-       
 
-  maProcedure();
-  tab();
-
-  nouvelleProcedure(2,3,tab2);
 
   encore();
   encore(2+3);

@@ -81,7 +81,7 @@ programme 				: entete liste_declarations declaration_methodes instruction_compo
 
 entete					: PROGRAM ID SEMICOLON
             			| error ID SEMICOLON     {yyerror ("mot clef 'program' absent"); }
-                		| PROGRAM error SEMICOLON        {yyerror ("nom du prog invalide"); } 
+                		| PROGRAM error SEMICOLON        {yyerror ("nom du prog invalide"); }
                 		| PROGRAM ID error           {yyerror ("semicolon expecte"); }
                 		;
 
