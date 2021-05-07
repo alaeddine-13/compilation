@@ -148,8 +148,8 @@ liste_parametres 		: declaration_corps POINT_VIRGULE liste_parametres
 						| declaration_corps
 						;
 
-instruction_composee    : _BEGIN liste_instructions END {endProc(nbline);}
-						| _BEGIN END {endProc(nbline);}
+instruction_composee    : _BEGIN liste_instructions END {finProcedure(nbline);}
+						| _BEGIN END {finProcedure(nbline);}
 						;
 
 liste_instructions 		: instruction POINT_VIRGULE liste_instructions
@@ -172,15 +172,15 @@ instruction  			: lvalue AFFECT expression
 
 lvalue 					: IDENTIFIER
 						{
-							if(checkIdentifierDeclared(nom,nbline)) {
+							if(verifierIDDeclare(nom,nbline)) {
 								varInitialized (nom);
 							}
 						}
 						'[' expression ']'
 						| IDENTIFIER
 						{
-							if(checkIdentifierDeclared(nom,nbline)) {
-								varInitialized (nom);
+							if(verifierIDDeclare(nom,nbline)) {
+								initVar (nom);
 							}
 						}
 						;
@@ -225,14 +225,14 @@ addop 					: '+'
 
 facteur 				: IDENTIFIER
 						{
-							if(checkIdentifierDeclared(nom,nbline)) {
+							if(verifierIDDeclare(nom,nbline)) {
 								checkVarInit(nom, nbline);
 							}
 						}
 						| IDENTIFIER
 						{
-							if(checkIdentifierDeclared(nom,nbline)) {
-								checkVarInit(nom, nbline);
+							if(verifierIDDeclare(nom,nbline)) {
+								verifierVarInitialise(nom, nbline);
 							}
 						}
 						  '[' expression ']'

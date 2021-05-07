@@ -35,10 +35,10 @@ NOEUD insert (NOEUD noeud, TABLE_NOUED table);
 NOEUD chercher (const char* nom, TABLE_NOUED table);
 
 void verifierID(char* nom, int nbline);
-int checkIdentifierDeclared(char* nom, int nbline);
-void varInitialized (char* nom);
-void checkVarInit(char * nom, int nbline);
-void endProc(int nbline);
+int verifierIDDeclare(char* nom, int nbline);
+void initVar (char* nom);
+void verifierVarInitialise(char * nom, int nbline);
+void finProcedure(int nbline);
 void destructSymbolsTable( TABLE_NOUED SymbolsTable );
 int print_error(char* msg, int nbline);
 void checkID(char* nom, int nbline);

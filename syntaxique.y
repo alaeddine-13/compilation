@@ -72,11 +72,11 @@ void End();
 
 %%
 
-programme 				: entete liste_declarations declaration_methodes instruction_composee {endProc(nbline);}
-						| entete liste_declarations instruction_composee {endProc(nbline);}
-						| entete declaration_methodes instruction_composee {endProc(nbline);}
-						| entete instruction_composee  {endProc(nbline);}
-						| entete  {endProc(nbline);}
+programme 				: entete liste_declarations declaration_methodes instruction_composee {finProcedure(nbline);}
+						| entete liste_declarations instruction_composee {finProcedure(nbline);}
+						| entete declaration_methodes instruction_composee {finProcedure(nbline);}
+						| entete instruction_composee  {finProcedure(nbline);}
+						| entete  {finProcedure(nbline);}
 						;
 
 entete					: PROGRAM ID SEMICOLON
@@ -129,8 +129,8 @@ declaration_methodes 	: declaration_methode SEMICOLON declaration_methodes
 						| declaration_methode SEMICOLON
 						;
  
-declaration_methode 	: entete_methode {g_IfProc = 1; } liste_declarations instruction_composee {endProc(nbline);}
-						| entete_methode {g_IfProc = 1; } instruction_composee {endProc(nbline);}
+declaration_methode 	: entete_methode {g_IfProc = 1; } liste_declarations instruction_composee {finProcedure(nbline);}
+						| entete_methode {g_IfProc = 1; } instruction_composee {finProcedure(nbline);}
 						;
  
 entete_methode 			: PROCEDURE

@@ -1477,31 +1477,31 @@ yyreduce:
     {
   case 2:
 #line 75 "syntaxique.y"
-                                                                                                              {endProc(nbline);}
+                                                                                                              {finProcedure(nbline);}
 #line 1482 "syntaxique.tab.c"
     break;
 
   case 3:
 #line 76 "syntaxique.y"
-                                                                                                 {endProc(nbline);}
+                                                                                                 {finProcedure(nbline);}
 #line 1488 "syntaxique.tab.c"
     break;
 
   case 4:
 #line 77 "syntaxique.y"
-                                                                                                   {endProc(nbline);}
+                                                                                                   {finProcedure(nbline);}
 #line 1494 "syntaxique.tab.c"
     break;
 
   case 5:
 #line 78 "syntaxique.y"
-                                                                               {endProc(nbline);}
+                                                                               {finProcedure(nbline);}
 #line 1500 "syntaxique.tab.c"
     break;
 
   case 6:
 #line 79 "syntaxique.y"
-                                                          {endProc(nbline);}
+                                                          {finProcedure(nbline);}
 #line 1506 "syntaxique.tab.c"
     break;
 
@@ -1601,7 +1601,7 @@ yyreduce:
 
   case 30:
 #line 132 "syntaxique.y"
-                                                                                                  {endProc(nbline);}
+                                                                                                  {finProcedure(nbline);}
 #line 1606 "syntaxique.tab.c"
     break;
 
@@ -1613,7 +1613,7 @@ yyreduce:
 
   case 32:
 #line 133 "syntaxique.y"
-                                                                                                       {endProc(nbline);}
+                                                                                                       {finProcedure(nbline);}
 #line 1618 "syntaxique.tab.c"
     break;
 

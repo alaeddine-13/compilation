@@ -138,7 +138,7 @@ void verifierID (char* nom, int nbline){
     }
 }
 
-int checkIdentifierDeclared (char* nom, int nbline){
+int verifierIDDeclare (char* nom, int nbline){
 
     NOEUD noeud;
 
@@ -170,7 +170,7 @@ int checkIdentifierDeclared (char* nom, int nbline){
     return 1;
 }
 
-void varInitialized (char* nom){
+void initVar (char* nom){
 
     NOEUD noeud;
 
@@ -184,7 +184,7 @@ void varInitialized (char* nom){
     noeud->isInit = 1;
 }
 
-void checkVarInit (char* nom,int nbline){
+void verifierVarInitialise (char* nom, int nbline){
 
     NOEUD noeud;
 
@@ -199,7 +199,7 @@ void checkVarInit (char* nom,int nbline){
         print_error("Variable not initialized",nbline);
 }
 
-void endProc(int nbline)
+void finProcedure(int nbline)
 {
     NOEUD tmp_table;
     printf("g_ifproc: %d", g_IfProc);
@@ -235,15 +235,15 @@ int print_error(char * msg, int nbline)
 
 
 void checkID(char* nom, int nbline){
-    if(checkIdentifierDeclared(nom, nbline)) {
-        checkVarInit(nom, nbline);
+    if(verifierIDDeclare(nom, nbline)) {
+        verifierVarInitialise(nom, nbline);
     }
 }
 
 
 void checkIDOnInit(char* nom, int nbline){
-    if(checkIdentifierDeclared(nom,nbline)) {
-        varInitialized (nom);
+    if(verifierIDDeclare(nom, nbline)) {
+        initVar(nom);
     }
 }
 
