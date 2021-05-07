@@ -105,11 +105,9 @@ declaration_corps   	: liste_identificateurs COLON type{
 
  
 liste_identificateurs   : ID {
-                            printf("*********** here 1 ********** \n");
                             checkIdentifier(nom,nbline);
                         } VIRGULE liste_identificateurs
 						| ID {
-                            printf("*********** here 2 ********** \n");
                             checkIdentifier(nom,nbline);
                         };
  

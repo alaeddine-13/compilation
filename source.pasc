@@ -11,7 +11,7 @@ program tp1Source4;
   des variables globales
   ===================== */
   
-var x,y: integer;
+var x,y,x: integer;
 var tab1: array [1 . . 10] of;
 
 /* ====================================================

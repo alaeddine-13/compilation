@@ -564,14 +564,14 @@ static const yytype_int8 yytranslate[] =
 static const yytype_int16 yyrline[] =
 {
        0,    75,    75,    76,    77,    78,    79,    82,    83,    84,
-      85,    88,    89,    92,    93,    94,    97,   107,   107,   111,
-     116,   117,   118,   121,   123,   125,   127,   130,   131,   134,
-     134,   135,   135,   140,   150,   138,   156,   155,   166,   167,
-     168,   172,   171,   176,   179,   180,   181,   184,   185,   188,
-     189,   190,   193,   194,   195,   196,   197,   198,   201,   207,
-     206,   211,   215,   219,   218,   229,   228,   239,   243,   242,
-     247,   251,   254,   255,   256,   257,   260,   261,   264,   265,
-     268,   273,   272,   277,   278
+      85,    88,    89,    92,    93,    94,    97,   107,   107,   110,
+     114,   115,   116,   119,   121,   123,   125,   128,   129,   132,
+     132,   133,   133,   138,   148,   136,   154,   153,   164,   165,
+     166,   170,   169,   174,   177,   178,   179,   182,   183,   186,
+     187,   188,   191,   192,   193,   194,   195,   196,   199,   205,
+     204,   209,   213,   217,   216,   227,   226,   237,   241,   240,
+     245,   249,   252,   253,   254,   255,   258,   259,   262,   263,
+     266,   271,   270,   275,   276
 };
 #endif
 
@@ -1550,77 +1550,75 @@ yyreduce:
   case 17:
 #line 107 "syntaxique.y"
                              {
-                            printf("*********** here 1 ********** \n");
                             checkIdentifier(nom,nbline);
                         }
-#line 1557 "syntaxique.tab.c"
+#line 1556 "syntaxique.tab.c"
     break;
 
   case 19:
-#line 111 "syntaxique.y"
+#line 110 "syntaxique.y"
                                                      {
-                            printf("*********** here 2 ********** \n");
                             checkIdentifier(nom,nbline);
                         }
-#line 1566 "syntaxique.tab.c"
+#line 1564 "syntaxique.tab.c"
     break;
 
   case 22:
-#line 118 "syntaxique.y"
+#line 116 "syntaxique.y"
                                                                                                                                        {yyerror("missing type");}
-#line 1572 "syntaxique.tab.c"
+#line 1570 "syntaxique.tab.c"
     break;
 
   case 23:
-#line 122 "syntaxique.y"
+#line 120 "syntaxique.y"
                         { g_type = tInt; }
-#line 1578 "syntaxique.tab.c"
+#line 1576 "syntaxique.tab.c"
     break;
 
   case 24:
-#line 124 "syntaxique.y"
+#line 122 "syntaxique.y"
                                                 { g_type = tReal; }
-#line 1584 "syntaxique.tab.c"
+#line 1582 "syntaxique.tab.c"
     break;
 
   case 25:
-#line 126 "syntaxique.y"
+#line 124 "syntaxique.y"
                                                 { g_type = tString; }
-#line 1590 "syntaxique.tab.c"
+#line 1588 "syntaxique.tab.c"
     break;
 
   case 26:
-#line 127 "syntaxique.y"
+#line 125 "syntaxique.y"
                                                         {yyerror("type invalide");}
-#line 1596 "syntaxique.tab.c"
+#line 1594 "syntaxique.tab.c"
     break;
 
   case 29:
-#line 134 "syntaxique.y"
+#line 132 "syntaxique.y"
                                          {g_IfProc = 1; }
-#line 1602 "syntaxique.tab.c"
+#line 1600 "syntaxique.tab.c"
     break;
 
   case 30:
-#line 134 "syntaxique.y"
+#line 132 "syntaxique.y"
                                                                                                   {endProc(nbline);}
-#line 1608 "syntaxique.tab.c"
+#line 1606 "syntaxique.tab.c"
     break;
 
   case 31:
-#line 135 "syntaxique.y"
+#line 133 "syntaxique.y"
                                                                  {g_IfProc = 1; }
-#line 1614 "syntaxique.tab.c"
+#line 1612 "syntaxique.tab.c"
     break;
 
   case 32:
-#line 135 "syntaxique.y"
+#line 133 "syntaxique.y"
                                                                                                        {endProc(nbline);}
-#line 1620 "syntaxique.tab.c"
+#line 1618 "syntaxique.tab.c"
     break;
 
   case 33:
-#line 140 "syntaxique.y"
+#line 138 "syntaxique.y"
                                                   {
                             if( chercher(nom, table) ){
                                 yyerror("Procedure already defined");
@@ -1630,20 +1628,20 @@ yyreduce:
                             }
                             g_IfProcParameters = 1;
                         }
-#line 1634 "syntaxique.tab.c"
+#line 1632 "syntaxique.tab.c"
     break;
 
   case 34:
-#line 150 "syntaxique.y"
+#line 148 "syntaxique.y"
                                                 {
 						    g_noeudProc->nbParam = g_nbParam;
 							g_nbParam = 0;
 						}
-#line 1643 "syntaxique.tab.c"
+#line 1641 "syntaxique.tab.c"
     break;
 
   case 36:
-#line 156 "syntaxique.y"
+#line 154 "syntaxique.y"
                                                  {
                             if( chercher(nom, table) ){
                                 yyerror("Procedure already defined");
@@ -1653,168 +1651,168 @@ yyreduce:
                             }
                             g_IfProcParameters = 1;
                         }
-#line 1657 "syntaxique.tab.c"
+#line 1655 "syntaxique.tab.c"
     break;
 
   case 38:
-#line 166 "syntaxique.y"
+#line 164 "syntaxique.y"
                                                                                       {yyerror("missing identifier");}
-#line 1663 "syntaxique.tab.c"
+#line 1661 "syntaxique.tab.c"
     break;
 
   case 39:
-#line 167 "syntaxique.y"
+#line 165 "syntaxique.y"
                                                                      {yyerror("missing semicolon");}
-#line 1669 "syntaxique.tab.c"
+#line 1667 "syntaxique.tab.c"
     break;
 
   case 40:
-#line 168 "syntaxique.y"
+#line 166 "syntaxique.y"
                                                                                {yyerror("wrong arguments");}
-#line 1675 "syntaxique.tab.c"
+#line 1673 "syntaxique.tab.c"
     break;
 
   case 41:
-#line 172 "syntaxique.y"
+#line 170 "syntaxique.y"
                                                 {
 							 g_IfProcParameters = 0;
 						}
-#line 1683 "syntaxique.tab.c"
+#line 1681 "syntaxique.tab.c"
     break;
 
   case 46:
-#line 181 "syntaxique.y"
+#line 179 "syntaxique.y"
                                                                                              {yyerror ("semicolon expecte"); }
-#line 1689 "syntaxique.tab.c"
+#line 1687 "syntaxique.tab.c"
     break;
 
   case 51:
-#line 190 "syntaxique.y"
+#line 188 "syntaxique.y"
                                                                      {yyerror ("semicolon expecte"); }
-#line 1695 "syntaxique.tab.c"
+#line 1693 "syntaxique.tab.c"
     break;
 
   case 57:
-#line 198 "syntaxique.y"
+#line 196 "syntaxique.y"
                                                                                             {
                             g_nbParam = 0;
                         }
-#line 1703 "syntaxique.tab.c"
+#line 1701 "syntaxique.tab.c"
     break;
 
   case 58:
-#line 201 "syntaxique.y"
+#line 199 "syntaxique.y"
                                                                                                {
                             g_nbParam = 0;
                         }
-#line 1711 "syntaxique.tab.c"
+#line 1709 "syntaxique.tab.c"
     break;
 
   case 59:
-#line 207 "syntaxique.y"
+#line 205 "syntaxique.y"
                                                 {
 						    checkIDOnInit(nom, nbline);
 						}
-#line 1719 "syntaxique.tab.c"
+#line 1717 "syntaxique.tab.c"
     break;
 
   case 61:
-#line 212 "syntaxique.y"
+#line 210 "syntaxique.y"
                                                 {
 						    checkIDOnInit(nom, nbline);
 						}
-#line 1727 "syntaxique.tab.c"
+#line 1725 "syntaxique.tab.c"
     break;
 
   case 62:
-#line 215 "syntaxique.y"
+#line 213 "syntaxique.y"
                                                         {yyerror("identificateur invalide");}
-#line 1733 "syntaxique.tab.c"
+#line 1731 "syntaxique.tab.c"
     break;
 
   case 63:
-#line 219 "syntaxique.y"
+#line 217 "syntaxique.y"
                                                 {
 							g_noeud = chercher(nom,table);
 						}
-#line 1741 "syntaxique.tab.c"
+#line 1739 "syntaxique.tab.c"
     break;
 
   case 64:
-#line 223 "syntaxique.y"
+#line 221 "syntaxique.y"
                                                 {
 							if ( g_noeud->nbParam != g_nbParam)
 								yyerror("invalid number of parameters ");
 							g_nbParam = 0;
 						}
-#line 1751 "syntaxique.tab.c"
+#line 1749 "syntaxique.tab.c"
     break;
 
   case 65:
-#line 229 "syntaxique.y"
+#line 227 "syntaxique.y"
                         {
                             g_noeud = chercher(nom,table);
                         }
-#line 1759 "syntaxique.tab.c"
+#line 1757 "syntaxique.tab.c"
     break;
 
   case 66:
-#line 233 "syntaxique.y"
+#line 231 "syntaxique.y"
                         {
                             g_nbParam = 0;
                             if ( g_noeud->nbParam != g_nbParam)
                                 yyerror("invalid number of parameters ");
                             g_nbParam = 0;
                         }
-#line 1770 "syntaxique.tab.c"
+#line 1768 "syntaxique.tab.c"
     break;
 
   case 67:
-#line 239 "syntaxique.y"
+#line 237 "syntaxique.y"
                                                            {yyerror("parenthese absente");}
-#line 1776 "syntaxique.tab.c"
+#line 1774 "syntaxique.tab.c"
     break;
 
   case 68:
-#line 243 "syntaxique.y"
+#line 241 "syntaxique.y"
                                                 {
 							g_nbParam ++;
 						}
-#line 1784 "syntaxique.tab.c"
+#line 1782 "syntaxique.tab.c"
     break;
 
   case 70:
-#line 248 "syntaxique.y"
+#line 246 "syntaxique.y"
                                                 {
 							g_nbParam ++;
 						}
-#line 1792 "syntaxique.tab.c"
+#line 1790 "syntaxique.tab.c"
     break;
 
   case 75:
-#line 257 "syntaxique.y"
+#line 255 "syntaxique.y"
                                                                         {yyerror("op absent");}
-#line 1798 "syntaxique.tab.c"
+#line 1796 "syntaxique.tab.c"
     break;
 
   case 80:
-#line 269 "syntaxique.y"
+#line 267 "syntaxique.y"
                                                 {
 						    checkID(nom, nbline);
 						}
-#line 1806 "syntaxique.tab.c"
+#line 1804 "syntaxique.tab.c"
     break;
 
   case 81:
-#line 273 "syntaxique.y"
+#line 271 "syntaxique.y"
                                                 {
 						    checkID(nom, nbline);
 						}
-#line 1814 "syntaxique.tab.c"
+#line 1812 "syntaxique.tab.c"
     break;
 
 
-#line 1818 "syntaxique.tab.c"
+#line 1816 "syntaxique.tab.c"
 
       default: break;
     }
@@ -2046,7 +2044,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 281 "syntaxique.y"
+#line 279 "syntaxique.y"
  
 
 int yyerror(char const * msg) 
