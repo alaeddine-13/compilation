@@ -1,6 +1,6 @@
 #include "semantique.h"
 
-TABLE_NOUED table, tableLocale;
+TABLE_NOUED table, table_local;
 
 // Variables Globales
 NOEUD g_noeud, g_noeudProc;
@@ -118,11 +118,11 @@ void checkIdentifier (char* nom, int nbline){
         }else{
             classe = variable;
         }
-        if( chercherNoeud(nom, tableLocale) ){
+        if( chercherNoeud(nom, table_local) ){
             print_error(concat("Identificateur deja defini: ", nom),nbline);
         }else{
             NOEUD noeud = creerNoeud(nom, g_type, classe ,NULL);
-            tableLocale = insererNoeud(noeud, tableLocale);
+            table_local = insererNoeud(noeud, table_local);
             g_ListIdentifiers[g_index] = noeud;
             g_index++;
         }
@@ -143,7 +143,7 @@ int checkIdentifierDeclared (char* nom, int nbline){
     NOEUD noeud;
 
     if (g_IfProc){
-        noeud = chercherNoeud(nom,tableLocale);
+        noeud = chercherNoeud(nom,table_local);
         if ( !noeud ){
             noeud = chercherNoeud(nom,table);
             if( !noeud ){
@@ -175,7 +175,7 @@ void varInitialized (char* nom){
     NOEUD noeud;
 
     if (g_IfProc){
-        noeud = chercherNoeud(nom,tableLocale);
+        noeud = chercherNoeud(nom,table_local);
         if ( !noeud )
             noeud = chercherNoeud(nom,table);
     }else{
@@ -189,7 +189,7 @@ void checkVarInit (char* nom,int nbline){
     NOEUD noeud;
 
     if (g_IfProc){
-        noeud = chercherNoeud(nom,tableLocale);
+        noeud = chercherNoeud(nom,table_local);
         if ( !noeud )
             noeud = chercherNoeud(nom,table);
     }else{
@@ -204,11 +204,9 @@ void endProc(int nbline)
     NOEUD tmp_table;
     printf("g_ifproc: %d", g_IfProc);
     if (g_IfProc == 1){
-        // printf("*** Table Locale ***\n");
-        // DisplaySymbolsTable( tableLocale );
         g_IfProc = 0;
-        tmp_table = tableLocale;
-        tableLocale = NULL;
+        tmp_table = table_local;
+        table_local = NULL;
     }else{
         // printf("*** Table Globale ***\n");
         // DisplaySymbolsTable( table );

@@ -292,7 +292,7 @@ void Begin()
 {
 	//initialisations
 	table = NULL;
-	tableLocale = NULL;
+	table_local = NULL;
 
 	g_type = NODE_TYPE_UNKNOWN;
 
