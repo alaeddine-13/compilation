@@ -1,0 +1,1 @@
+/usr/bin/cc -g CMakeFiles/syntaxique.dir/lex.yy.c.o CMakeFiles/syntaxique.dir/syntaxique.tab.c.o -o syntaxique 

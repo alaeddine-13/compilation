@@ -7,6 +7,7 @@
 #include "syntaxique.tab.h"	
 
 int nbline = 1 ;
+extern char nom[];
 
 %}
 
@@ -95,9 +96,12 @@ string               return(STRING);
 {string}             return(LIT_STRING);
 
 {integer}           {
+                        yylval = atoi(yytext);
                         return(LIT_INTEGER);
                     }
+
 {id}        {
+                        strcpy(nom, yytext);
                         return ID; 
                     }
 

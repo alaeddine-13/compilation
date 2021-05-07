@@ -1,0 +1,8 @@
+program HelloWorld;
+var 
+ no : integer;
+/* Here the main program block starts */
+begin
+   546no := 0;
+   no := no +1;
+end

@@ -1,14 +1,17 @@
 %{
 
+#include "semantique.c"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 extern int nbline; 
-
+char nom[256];
 
 int yyerror(char const * msg);	
 int yylex();
+void Begin();
+void End();
 
 %}
 %token PROGRAM 
@@ -91,11 +94,22 @@ declaration 			: VAR declaration_corps SEMICOLON
 						| VAR declaration_corps error				 {yyerror ("semicolon expecte"); }
 						;
  
-declaration_corps   	: liste_identificateurs COLON type;
+declaration_corps   	: liste_identificateurs COLON type{
+                            while( g_index > 0 ) {
+                                g_index-- ;
+                                g_ListIdentifiers[g_index]->type = g_type;
+                            }
+                            g_index = 0 ;
+                        }
+                        ;
 
  
-liste_identificateurs   : ID VIRGULE liste_identificateurs 
-						| ID ;
+liste_identificateurs   : ID {
+                            checkIdentifier(nom,nbline);
+                        } VIRGULE liste_identificateurs
+						| ID {
+                            checkIdentifier(nom,nbline);
+                        };
  
 type 					: standard_type 
 						| ARRAY BRACKET_OUVRANTE LIT_INTEGER POINT POINT LIT_INTEGER BRACKET_FERMANTE OF standard_type
@@ -103,8 +117,11 @@ type 					: standard_type
 						;
 
 standard_type 			: INTEGER
+                        { g_type = tInt; }
 						| REAL
+						{ g_type = tReal; }
 						| STRING
+						{ g_type = tString; }
 						| error {yyerror("type invalide");}
 						;
  
@@ -116,14 +133,43 @@ declaration_methode 	: entete_methode liste_declarations instruction_composee
 						| entete_methode instruction_composee 
 						;
  
-entete_methode 			: PROCEDURE 
+entete_methode 			: PROCEDURE { g_IfProc = 1; }
 						  ID
+						  {
+                            if( chercherNoeud(nom, table) ){
+                                yyerror("Procedure already defined");
+                            }else{
+                                g_noeudProc = creerNoeud(nom, NODE_TYPE_UNKNOWN, procedure, NULL);
+                                table = insererNoeud(g_noeudProc, table);
+                            }
+                            g_IfProcParameters = 1;
+                        }
 						  arguments
-						| PROCEDURE error arguments {yyerror("missing identifier");}
-						| PROCEDURE ID error {yyerror("missing PROCEDURE args");}
+						{
+						    g_noeudProc->nbParam = g_nbParam;
+							g_nbParam = 0;
+						}
+						SEMICOLON
+						| PROCEDURE ID
+						 {
+                            if( chercherNoeud(nom, table) ){
+                                yyerror("Procedure already defined");
+                            }else{
+                                g_noeudProc = creerNoeud(nom, NODE_TYPE_UNKNOWN, procedure, NULL);
+                                table = insererNoeud(g_noeudProc, table);
+                            }
+                            g_IfProcParameters = 1;
+                        }
+                        SEMICOLON
+						| PROCEDURE error arguments SEMICOLON {yyerror("missing identifier");}
+						| PROCEDURE ID error {yyerror("missing semicolon");}
+						| PROCEDURE ID error SEMICOLON {yyerror("wrong arguments");}
 						;
  
-arguments 				: OUVRANTE liste_parametres  
+arguments 				: OUVRANTE liste_parametres
+						{
+							 g_IfProcParameters = 0;
+						}
 						  FERMANTE
 						| OUVRANTE FERMANTE
 						;
@@ -133,11 +179,11 @@ liste_parametres 		: declaration_corps SEMICOLON liste_parametres
 						| declaration_corps error liste_parametres   {yyerror ("semicolon expecte"); }
 						;
  
-instruction_composee    : BBEGIN liste_instructions END
-						| BBEGIN END 
+instruction_composee    : BBEGIN liste_instructions END {endProc(nbline);}
+						| BBEGIN END {endProc(nbline);}
 						;
  
-liste_instructions 		: instruction SEMICOLON liste_instructions 
+liste_instructions 		: instruction SEMICOLON liste_instructions
 						| instruction SEMICOLON 
 						| instruction error  {yyerror ("semicolon expecte"); }
 						;
@@ -147,29 +193,58 @@ instruction  			: lvalue AFFECTATION expression
 						| instruction_composee 
 						| IF expression THEN instruction ELSE instruction 
 						| WHILE expression DO instruction 
-						| WRITE OUVRANTE liste_expressions FERMANTE
-						| READ OUVRANTE liste_identificateurs FERMANTE
+						| WRITE OUVRANTE liste_expressions FERMANTE {
+                            g_nbParam = 0;
+                        }
+						| READ OUVRANTE liste_identificateurs FERMANTE {
+                            g_nbParam = 0;
+                        }
 						;
  
-lvalue 					: ID 
+lvalue 					: ID
+						{
+							if(checkIdentifierDeclared(nom,nbline)) {
+								varInitialized (nom);
+							}
+						}
 						BRACKET_OUVRANTE expression BRACKET_FERMANTE 
-						| ID 
+						| ID
+						{
+							if(checkIdentifierDeclared(nom,nbline)) {
+								varInitialized (nom);
+							}
+						}
 						;
  
-appel_methode 			: ID 
+appel_methode 			: ID
+						{
+							g_noeud = chercherNoeud(nom,table);
+						}
 						  OUVRANTE liste_expressions FERMANTE
+						{
+							if ( g_noeud->nbParam != g_nbParam)
+								yyerror("invalid number of parameters ");
+							g_nbParam = 0;
+						}
 						| ID error {yyerror("parenthese absente");}
 						;
  
-liste_expressions 		: expression 
-						  VIRGULE liste_expressions 
-						| expression 
+liste_expressions 		: expression
+						{
+							g_nbParam ++;
+						}
+						  VIRGULE liste_expressions
+						| expression
+						{
+							g_nbParam ++;
+						}
 						|
 						;
  
 expression 				: facteur 
 						| facteur addop facteur 
 						| facteur mulop facteur
+						| facteur error facteur {yyerror("op absent");}
 						;
  
 mulop 					: MULT
@@ -180,8 +255,18 @@ addop 					: PLUS
 						| MOINS
 						;
  
-facteur 				: ID 
-						| ID 
+facteur 				: ID
+						{
+							if(checkIdentifierDeclared(nom,nbline)) {
+								checkVarInit(nom, nbline);
+							}
+						}
+						| ID
+						{
+							if(checkIdentifierDeclared(nom,nbline)) {
+								checkVarInit(nom, nbline);
+							}
+						}
 						  BRACKET_OUVRANTE expression BRACKET_FERMANTE
 						| LIT_INTEGER 
 						| OUVRANTE expression FERMANTE
@@ -197,10 +282,32 @@ int yyerror(char const * msg)
 
 extern FILE *yyin;
 
+void Begin()
+{
+	//initialisations
+	table = NULL;
+	tableLocale = NULL;
+
+	g_type = NODE_TYPE_UNKNOWN;
+
+	g_index = 0;
+	g_nbParam = 0;
+
+	g_IfProc = 0 ;
+    g_IfProcParameters = 0 ;
+}
+
+void End()
+{
+	destructSymbolsTable(table);
+}
+
 
 main()
 {
+	Begin();
 	yyparse();
+	End();
 }
 
 yywrap()
