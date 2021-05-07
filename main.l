@@ -105,13 +105,13 @@ string               return(STRING);
                         return ID; 
                     }
 
-{bad_string}        { fprintf(stderr,"Error on line %d : Unterminated string\n", nbline); }
+{bad_string}        { printf("erreur syntaxique ligne %d : Unterminated string\n", nbline); }
 
 
 
 {delim}        /* do nothing */
 \n                   ++nbline;
-.                    { fprintf(stderr,"Error on line %d : Illegal character \'%s\'\n", nbline); }
+.                    { printf("erreur syntaxique ligne %d : Illegal character \'%s\'\n", nbline); }
 
 %%
 

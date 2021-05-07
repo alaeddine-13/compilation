@@ -43,6 +43,7 @@ void destructSymbolsTable( TABLE_SEMANTIQUE SymbolsTable );
 int print_error(char* msg, int nbline);
 void checkID(char* nom, int nbline);
 void checkIDOnInit(char* nom, int nbline);
+char* concat(char* s1, char* s2);
 
 
 

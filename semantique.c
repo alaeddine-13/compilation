@@ -112,6 +112,8 @@ void checkIdentifier (char* nom, int nbline){
     CLASSE classe;
 
     if (g_IfProc){
+        printf("table locale: \n");
+        DisplaySymbolsTable(tableLocale);
         if (g_IfProcParameters){
             classe = parametre;
             g_nbParam ++;
@@ -119,7 +121,7 @@ void checkIdentifier (char* nom, int nbline){
             classe = variable;
         }
         if( chercherNoeud(nom, tableLocale) ){
-            print_error("Identifier already defined",nbline);
+            print_error(concat("Identificateur deja defini: ", nom),nbline);
         }else{
             NOEUD noeud = creerNoeud(nom, g_type, classe ,NULL);
             tableLocale = insererNoeud(noeud, tableLocale);
@@ -127,8 +129,10 @@ void checkIdentifier (char* nom, int nbline){
             g_index++;
         }
     }else{
+        printf("table globale: \n");
+        DisplaySymbolsTable(table);
         if( chercherNoeud(nom, table) ){
-            print_error("Identifier already defined",nbline);
+            print_error(concat("Identificateur deja defini: ", nom),nbline);
         }else{
             NOEUD noeud = creerNoeud(nom, g_type, variable ,NULL);
             table = insererNoeud(noeud, table);
@@ -147,7 +151,7 @@ int checkIdentifierDeclared (char* nom, int nbline){
         if ( !noeud ){
             noeud = chercherNoeud(nom,table);
             if( !noeud ){
-                print_error("Variable undeclared",nbline);
+                print_error(concat("variable non declare: ", nom),nbline);
                 return 0;
             }else
             {
@@ -160,7 +164,7 @@ int checkIdentifierDeclared (char* nom, int nbline){
     }else{
         noeud = chercherNoeud(nom,table);
         if( !noeud ){
-            print_error("Variable undeclared",nbline);
+            print_error(concat("variable non declare: ", nom),nbline);
             return 0;
         }else
         {
@@ -201,8 +205,9 @@ void checkVarInit (char* nom,int nbline){
 
 void endProc(int nbline)
 {
+    //printf("*****************endproc******************\n");
+    //printf("ifproc: %d\n", g_IfProc);
     NOEUD tmp_table;
-    printf("g_ifproc: %d", g_IfProc);
     if (g_IfProc == 1){
         // printf("*** Table Locale ***\n");
         // DisplaySymbolsTable( tableLocale );
@@ -231,7 +236,7 @@ void endProc(int nbline)
 
 int print_error(char * msg, int nbline)
 {
-    fprintf(stderr,"Error on line %d : %s\n", nbline, msg);
+    printf("erreur semantique ligne %d : %s\n", nbline, msg);
     return(1);
 }
 
@@ -249,3 +254,10 @@ void checkIDOnInit(char* nom, int nbline){
     }
 }
 
+char* concat(char* s1, char* s2){
+    char* message;
+    message = malloc(strlen(s1)+ strlen(s2));
+    strcpy(message, s1);
+    strcat(message, s2);
+    return message;
+}

@@ -1,8 +1,9 @@
 program HelloWorld;
-var 
- no : array[5 . . 10];
+var
+ no : array[5 . . 10] of integer;
+ var a:integer;
 /* Here the main program block starts */
 begin
-   no := 0;
-   no := no +1;
+   ano := 0 + no;
+   /*no := no +1;*/
 end
